@@ -1,13 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import Products from '../pages/products';
 import ProductDetail from '../pages/productsDetail';
-import Home from '../pages/home';
+import AuthPage from '../pages/AuthPage';
+import { Endpoints } from '../api/endpoints';
 
 function App() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
+            <Route path={Endpoints.Auth} element={<AuthPage />} />
+            <Route path={Endpoints.products} element={<Products />} />
             <Route path="/products/:id" element={<ProductDetail />} />
         </Routes>
     );
