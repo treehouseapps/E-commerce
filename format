@@ -1,0 +1,38 @@
+src/
+├── api/                   <-- API calls and services
+│   ├── productApi.js
+│   ├── userApi.js
+│   └── authApi.js
+├── assets/                <-- Static files (images, fonts, etc.)
+│   ├── images/
+│   └── styles/
+├── components/            <-- Reusable UI components (buttons, cards, etc.)
+│   ├── Button.jsx
+│   ├── ProductCard.jsx
+│   └── Header.jsx
+├── config/                <-- Configuration and constants (e.g., endpoints, settings)
+│   ├── endpoints.js
+│   └── settings.js
+├── context/               <-- Global state management (e.g., context providers)
+│   └── AuthContext.js
+├── hooks/                 <-- Reusable custom hooks
+│   ├── useProducts.js
+│   └── useAuth.js
+├── pages/                 <-- Page-level components (each represents a route)
+│   ├── Home.jsx
+│   ├── Products.jsx
+│   ├── ProductDetail.jsx
+│   └── Login.jsx
+├── routes/                <-- Routing setup (if using React Router or similar)
+│   └── AppRouter.jsx
+├── services/              <-- Logic for interacting with APIs or external services
+│   └── authService.js
+├── store/                 <-- State management (if using Redux or MobX)
+│   ├── actions/
+│   └── reducers/
+├── styles/                <-- Global styles (CSS or styled-components)
+│   ├── global.css
+│   └── theme.js
+├── utils/                 <-- Helper functions (e.g., formatting, validation)
+│   └── formatDate.js
+└── App.js                 <-- Main app component
