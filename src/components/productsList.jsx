@@ -1,9 +1,11 @@
 import { Grid, Card, CardContent, CardActions, Typography, Button } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../api/products'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { CartContext } from '../context/CartContext';
 
-const Products = (props) => {
+const Products = () => {
+    const { addToCart } = useContext(CartContext)
     const [products, setProducts] = useState([])
 
     useEffect(() => {
@@ -38,7 +40,7 @@ const Products = (props) => {
                             <Button
                                 variant="contained"
                                 fullWidth
-                                onClick={() => props.addToCart(item)}
+                                onClick={() => addToCart(item)}
                             >
                                 Add to Cart
                             </Button>
