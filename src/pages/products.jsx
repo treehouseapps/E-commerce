@@ -16,6 +16,9 @@ const Products = () => {
             return addItem
         })
     }
+    const removeFromCart = (indexToRemove) => {
+        setCart(prev => prev.filter((_, i) => i !== indexToRemove));
+    }
 
     const openCart = () => {
         setcartVisibility(!cartVisibility)
@@ -42,7 +45,7 @@ const Products = () => {
             <Box
                 style={{ display: cartVisibility ? 'block' : 'none', }}
                 display={cartVisibility}>
-                <Cart cart={cart} />
+                <Cart cart={cart} removeFromCart={removeFromCart} />
             </Box>
             <Grid container spacing={3} padding={3} sx={{ width: '100%' }}>
                 <ProductsList addToCart={addToCart} />
