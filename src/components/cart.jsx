@@ -7,10 +7,10 @@ const Cart = () => {
     const { cart, removeFromCart } = useContext(CartContext)
     const [totalprice, setTotalPrice] = useState(0);
 
-    useEffect(() => {
-        const total = cart.reduce((acc, item) => acc + parseFloat(item.price), 0);
-        setTotalPrice(total);
-    }, [cart]);
+    // useEffect(() => {
+    //     const total = cart.reduce((acc, item) => acc + parseFloat(item.price), 0);
+    //     setTotalPrice(total);
+    // }, [cart]);
 
     return (
         <Box
@@ -48,8 +48,13 @@ const Cart = () => {
                     cart.map((item, index) => (
                         <Box key={index} display="flex" justifyContent="space-between" alignItems="center" p={1} borderRadius={1} sx={{ backgroundColor: '#f9f9f9', '&:hover': { backgroundColor: '#e3f2fd' } }}>
                             <Box>
-                                <Typography variant="subtitle1" fontWeight="500">{item.name}</Typography>
-                                <Typography variant="body2" color="textSecondary">${item.price}</Typography>
+                                <Typography variant="subtitle1" fontWeight="500">
+                                    {item.productId.name}
+                                    <Box component="span" ml={1} px={1} py={0.2} borderRadius={1} bgcolor="#1976d2" color="#fff" fontSize="0.75rem">
+                                        x{item.quantity}
+                                    </Box>
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary">${item.productId.price}</Typography>
                             </Box>
                             <IconButton color="error" onClick={() => removeFromCart(index)}>
                                 <DeleteIcon />
