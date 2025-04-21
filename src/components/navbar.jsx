@@ -1,13 +1,20 @@
 import { Person, Search, ShoppingBag, ShoppingCart } from "@mui/icons-material";
 import { Typography, Button, Box, Badge } from "@mui/material";
-import { useContext } from 'react';
+import { use, useContext, useEffect, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import Cart from "../components/cart";
 import { Link } from "react-router-dom";
 import { Endpoints } from "../api/endpoints";
+import Logout from "./logoutBtn";
 
 const Navbar = () => {
     const { cart, cartVisibility, openCart } = useContext(CartContext)
+    const [user, setUser] = useState(localStorage.getItem('token'));
+
+    useEffect(() => {
+        setUser(localStorage.getItem('token'));
+    }, [user]);
+
     return (
         <>
             <Box
@@ -21,8 +28,15 @@ const Navbar = () => {
             >
                 <Typography variant="h6"> E-Commerce</Typography>
                 <Box display="flex" gap={2}>
+                    {user && (
+                        <>
+                            <Logout onClick={() => { alert('het') }} />
+                        </>
+                    )}
                     <Link to={Endpoints.products}> <Button variant="text" startIcon={<ShoppingBag />}>Products</Button></Link>
-                    <Button variant="text" startIcon={<Search />}>Search</Button>
+                    <Link to={Endpoints.productForm}> <Button variant="text" startIcon={<ShoppingBag />}>Prod Form</Button></Link>
+                    <Link to={Endpoints.users}> <Button variant="text" startIcon={<ShoppingBag />}>Users</Button></Link>
+                    <Link to={Endpoints.AuthAdmin}> <Button variant="text" startIcon={<Search />}>Admin</Button></Link>
                     <Link to={Endpoints.Auth}> <Button variant="text" startIcon={<Person />}>Login</Button></Link>
                     <Button variant="text" startIcon={<Badge badgeContent={cart.length} color="secondary"><ShoppingCart /></Badge>}
                         onClick={() => { openCart() }}>Cart</Button>

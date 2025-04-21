@@ -20,13 +20,14 @@ const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [loading, setLoading] = useState(false);
     // Login
-    const [email, setEmail] = useState('abebe@gmail.com');
+    const [email, setEmail] = useState('Admin@gmail.com');
     const [password, setPassword] = useState('123456');
 
     // Register
     const [name, setName] = useState('Abebe');
     const [regEmail, setRegEmail] = useState('abebe@gmail.com');
     const [regPassword, setRegPassword] = useState('123456');
+    const [secret, setSecret] = useState('Bekijuniorr');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,17 +40,17 @@ const AuthPage = () => {
                     body: JSON.stringify({ email, password })
                 })
                 const result = await response.json()
-                localStorage.setItem('token', result.token);
+                localStorage.setItem('token', result.token)
                 setLoading(false)
             } catch (error) {
                 console.log(error)
             }
         } else {
             try {
-                const response = await fetch('http://localhost:3000/signup', {
+                const response = await fetch('http://localhost:3000/adminSignup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email: regEmail, password: regPassword })
+                    body: JSON.stringify({ name, email: regEmail, password: regPassword, secret })
                 });
                 const result = await response.json()
                 setLoading(false)
@@ -68,11 +69,11 @@ const AuthPage = () => {
                     <Typography variant="h4" align="center" gutterBottom>
                         {isLogin ? (
                             <>
-                                <LoginIcon sx={{ fontSize: 40, verticalAlign: 'middle' }} /> Login
+                                <LoginIcon sx={{ fontSize: 40, verticalAlign: 'middle' }} /> Admin Login
                             </>
                         ) : (
                             <>
-                                <PersonAddIcon sx={{ fontSize: 40, verticalAlign: 'middle' }} /> Register
+                                <PersonAddIcon sx={{ fontSize: 40, verticalAlign: 'middle' }} /> Admin Register
                             </>
                         )}
                     </Typography>
@@ -152,6 +153,22 @@ const AuthPage = () => {
                                     variant="outlined"
                                     value={regPassword}
                                     onChange={(e) => setRegPassword(e.target.value)}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <LockIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    label="Secret Key"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    value={secret}
+                                    onChange={(e) => setSecret(e.target.value)}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">

@@ -9,9 +9,19 @@ export const CartProvider = ({ children }) => {
 
 
     const addToCart = (item) => {
+        console.log(item._id)
         setCart((prevItem) => {
             const addItem = [...prevItem, item]
             return addItem
+        })
+        const token = localStorage.getItem('token')
+        const response = fetch('http://localhost:3000/cart/add', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId: item._id, quantity: 1 })
         })
     }
     const removeFromCart = (indexToRemove) => {

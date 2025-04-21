@@ -1,5 +1,8 @@
 export const Endpoints = {
     Auth: '/',
+    AuthAdmin: '/admin',
     signup: '/signup',
-    products: '/products'
+    users: '/users',
+    products: '/products',
+    productForm: '/productform'
 }

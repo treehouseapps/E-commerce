@@ -24,7 +24,7 @@ const Products = () => {
 
     return (
         <Grid container spacing={3} padding={3} sx={{ width: '100%' }}>
-            {products.map((item) => (
+            {products.length > 0 ? (products.map((item) => (
                 <Grid item xs={12} sm={6} md={4} key={item._id}>
                     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 2, boxShadow: 3 }}>
                         <Link to={'/products/' + item._id} style={{ textDecoration: 'none', color: 'black' }}>
@@ -47,7 +47,9 @@ const Products = () => {
                         </CardActions>
                     </Card>
                 </Grid>
-            ))}
+            )
+            )) : (<Typography variant="body2" color="textSecondary">Your Product is empty.</Typography>)
+            }
         </Grid>
     );
 }
