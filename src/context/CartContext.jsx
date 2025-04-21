@@ -8,16 +8,20 @@ export const CartProvider = ({ children }) => {
     const [cartVisibility, setcartVisibility] = useState(false)
 
     const getItem = async () => {
-        const token = localStorage.getItem('token')
-        const response = await fetch('http://localhost:3000/cart/', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        const cartItem = await response.json()
-        setCart(cartItem.products)
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch('http://localhost:3000/cart/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const cartItem = await response.json()
+            setCart(cartItem.products)
+        } catch (error) {
+            console.log(error)
+        }
     }
     const addToCart = async (item, quantity) => {
         try {
