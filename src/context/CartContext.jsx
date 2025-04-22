@@ -15,7 +15,6 @@ export const CartProvider = ({ children }) => {
             try {
                 const decoded = jwtDecode(token);
                 setUser(decoded.role);
-                console.log(decoded.role)
             } catch (err) {
                 console.error("Invalid token", err);
                 setUser('none');

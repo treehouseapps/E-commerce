@@ -42,7 +42,7 @@ const UserList = () => {
                                     <Typography><LockIcon /> ID: {user._id}</Typography>
                                     <Typography variant="h6"><PersonIcon /> Name: {user.name}</Typography>
                                     <Typography><EmailIcon /> Email: {user.email}</Typography>
-                                    <Typography><LockIcon /> Password: {user.password}</Typography>
+                                    <Typography><LockIcon /> Password: <i style={{ textDecoration: 'line-through' }}>Hidden</i></Typography>
                                     <Typography><AdminPanelSettingsIcon /> Role: {user.role}</Typography>
                                 </CardContent>
                             </Card>
