@@ -10,6 +10,8 @@ export const CartProvider = ({ children }) => {
     const [cartVisibility, setcartVisibility] = useState(false)
     const [token, setToken] = useState(localStorage.getItem('token'))
 
+    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+
     useEffect(() => {
         if (token) {
             try {
@@ -28,7 +30,7 @@ export const CartProvider = ({ children }) => {
     const getItem = async () => {
         if (user == 'user') {
             try {
-                const response = await fetch('http://localhost:3000/cart/', {
+                const response = await fetch(url + 'cart/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -45,7 +47,7 @@ export const CartProvider = ({ children }) => {
     const addToCart = async (item, quantity) => {
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch('http://localhost:3000/cart/add', {
+            const response = await fetch(url + 'cart/add', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -61,7 +63,7 @@ export const CartProvider = ({ children }) => {
     }
     const removeFromCart = async (indexToRemove) => {
         try {
-            const item = await fetch('http://localhost:3000/cart/' + indexToRemove, {
+            const item = await fetch(url + 'cart/' + indexToRemove, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

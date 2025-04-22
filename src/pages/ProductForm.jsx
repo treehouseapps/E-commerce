@@ -25,6 +25,8 @@ const ProductForm = () => {
         category: 'Electronics',
     });
 
+    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+
     const handleChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
     };
@@ -33,7 +35,7 @@ const ProductForm = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch('http://localhost:3000/products/add', {
+            const response = await fetch(url + 'products/add', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

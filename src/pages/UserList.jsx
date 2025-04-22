@@ -9,11 +9,13 @@ import Navbar from '../components/navbar';
 const UserList = () => {
     const [users, setUsers] = useState([]);
 
+    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+
     useEffect(() => {
         const fun = async () => {
             try {
                 const token = localStorage.getItem('token')
-                const response = await fetch('http://localhost:3000/getusers/', {
+                const response = await fetch(url + 'getusers/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

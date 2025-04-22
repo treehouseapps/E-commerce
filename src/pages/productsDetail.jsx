@@ -13,6 +13,7 @@ const ProductDetail = () => {
     const [openModal, setOpenModal] = useState(false);
     const [quantities, setQuantities] = useState({});
 
+    const url = 'https://e-commerce-api-f9qb.onrender.com/'
 
     const handleChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
@@ -41,7 +42,7 @@ const ProductDetail = () => {
     const submit = async (id) => {
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch('http://localhost:3000/products/' + id, {
+            const response = await fetch(url + 'products/' + id, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -59,7 +60,7 @@ const ProductDetail = () => {
     const DeleteProduct = async (id) => {
         try {
             const token = localStorage.getItem('token')
-            const result = await fetch('http://localhost:3000/products/' + id, {
+            const result = await fetch(url + 'products/' + id, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

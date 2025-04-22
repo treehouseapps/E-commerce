@@ -1,7 +1,7 @@
-const processenvURL = 'http://localhost:3000/products/'
+const url = 'https://e-commerce-api-f9qb.onrender.com/products/'
 export const getAllProducts = async () => {
     try {
-        const rawData = await fetch(processenvURL);
+        const rawData = await fetch(url);
         const data = await rawData.json()
         return data;
     } catch (error) {
@@ -10,7 +10,7 @@ export const getAllProducts = async () => {
 }
 export const getProductsById = async (id) => {
     try {
-        const rawData = await fetch(processenvURL + id);
+        const rawData = await fetch(url + id);
         const data = await rawData.json()
         return data;
     } catch (error) {
