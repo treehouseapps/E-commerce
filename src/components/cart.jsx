@@ -4,13 +4,8 @@ import { useState, useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const Cart = () => {
-    const { cart = [], removeFromCart } = useContext(CartContext)
+    const { cart, removeFromCart } = useContext(CartContext)
     const [totalprice, setTotalPrice] = useState(0);
-
-    // useEffect(() => {
-    //     const total = cart.reduce((acc, item) => acc + parseFloat(item.price), 0);
-    //     setTotalPrice(total);
-    // }, [cart]);
 
     return (
         <Box
@@ -56,7 +51,7 @@ const Cart = () => {
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">${item.productId.price}</Typography>
                             </Box>
-                            <IconButton color="error" onClick={() => removeFromCart(index)}>
+                            <IconButton color="error" onClick={() => removeFromCart(item._id)}>
                                 <DeleteIcon />
                             </IconButton>
                         </Box>

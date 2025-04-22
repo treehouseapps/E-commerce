@@ -22,14 +22,17 @@ export const CartProvider = ({ children }) => {
             }
         }
     }, [token]);
+    useEffect(() => {
+        getItem()
+    }, [user])
+
     const getItem = async () => {
-        const key = localStorage.getItem('token')
         if (user == 'user') {
             try {
                 const response = await fetch('http://localhost:3000/cart/', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${key}`,
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     }
                 })
@@ -40,7 +43,6 @@ export const CartProvider = ({ children }) => {
             }
         }
     }
-    getItem()
     const addToCart = async (item, quantity) => {
         try {
             const token = localStorage.getItem('token')
@@ -53,18 +55,32 @@ export const CartProvider = ({ children }) => {
                 body: JSON.stringify({ productId: item._id, quantity })
             })
             const result = await response.json()
-            alert(result.message)
         } catch (error) {
             console.log(error)
         }
+        getItem()
     }
-    const removeFromCart = (indexToRemove) => {
-        setCart(prev => prev.filter((_, i) => i !== indexToRemove));
+    const removeFromCart = async (indexToRemove) => {
+        try {
+            const item = await fetch('http://localhost:3000/cart/' + indexToRemove, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const result = await item.json()
+            console.log(result.message)
+        } catch (error) {
+            console.log(error)
+        }
+        getItem()
     }
 
     const openCart = () => {
         setcartVisibility((!cartVisibility));
     }
+    if (!cart) { setCart([]) }
     return (
         <CartContext.Provider value={{ user, cart, addToCart, removeFromCart, cartVisibility, openCart }}>
             {children}

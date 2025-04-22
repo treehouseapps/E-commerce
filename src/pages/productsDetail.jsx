@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Grid, Paper, IconButton, Modal, TextField, MenuItem } from "@mui/material";
+import { Box, CardContent, CardActions, Typography, Button, Grid, Paper, IconButton, Modal, TextField, MenuItem } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { getProductsById } from '../api/products'
 import { useEffect, useState, useContext } from "react";
@@ -11,10 +11,17 @@ const ProductDetail = () => {
     const { id } = useParams();
     const [product, setProduct] = useState([])
     const [openModal, setOpenModal] = useState(false);
+    const [quantities, setQuantities] = useState({});
 
 
     const handleChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
+    };
+    const handleQuantityChange = (id, value) => {
+        setQuantities(prev => ({
+            ...prev,
+            [id]: value
+        }));
     };
 
     useEffect(() => {
@@ -103,14 +110,31 @@ const ProductDetail = () => {
                             ${product.price}
                         </Typography>
 
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            onClick={() => addToCart(product)}
-                        >
-                            Add to Cart
-                        </Button>
+                        <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '95%' }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    value={quantities[product._id] || 1}
+                                    onChange={(e) => handleQuantityChange(product._id, parseInt(e.target.value))}
+                                    style={{
+                                        width: '30%',
+                                        padding: '8px',
+                                        borderRadius: '6px',
+                                        border: '1px solid #ccc',
+                                        marginRight: '10px',
+                                    }}
+                                />
+                                <Button
+                                    variant="contained"
+                                    fullWidth
+                                    onClick={() => addToCart(product, quantities[product._id] || 1)}
+                                    sx={{ width: '70%' }}
+                                >
+                                    Add to Cart
+                                </Button>
+                            </Box>
+                        </CardActions>
                     </Grid>
                 </Grid>
                 {user == 'admin' && (
