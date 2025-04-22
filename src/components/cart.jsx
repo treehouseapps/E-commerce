@@ -1,10 +1,10 @@
 import { Box, Typography, IconButton, Divider } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const Cart = () => {
-    const { cart, removeFromCart } = useContext(CartContext)
+    const { cart = [], removeFromCart } = useContext(CartContext)
     const [totalprice, setTotalPrice] = useState(0);
 
     // useEffect(() => {

@@ -12,8 +12,9 @@ const Navbar = () => {
     const [user, setUser] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
-        setUser(localStorage.getItem('token'));
-    }, [user]);
+        const token = localStorage.getItem('token');
+        setUser(token);
+    }, []);
 
     return (
         <>
@@ -38,7 +39,7 @@ const Navbar = () => {
                     <Link to={Endpoints.users}> <Button variant="text" startIcon={<ShoppingBag />}>Users</Button></Link>
                     <Link to={Endpoints.AuthAdmin}> <Button variant="text" startIcon={<Search />}>Admin</Button></Link>
                     <Link to={Endpoints.Auth}> <Button variant="text" startIcon={<Person />}>Login</Button></Link>
-                    <Button variant="text" startIcon={<Badge badgeContent={cart.length} color="secondary"><ShoppingCart /></Badge>}
+                    <Button variant="text" startIcon={<Badge badgeContent={cart?.length || 0} color="secondary"><ShoppingCart /></Badge>}
                         onClick={() => { openCart() }}>Cart</Button>
                 </Box>
             </Box >

@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import React, { createContext, useEffect, useState } from 'react';
 
 export const CartContext = createContext()
@@ -5,24 +6,41 @@ export const CartContext = createContext()
 export const CartProvider = ({ children }) => {
 
     const [cart, setCart] = useState([])
+    const [user, setUser] = useState([])
     const [cartVisibility, setcartVisibility] = useState(false)
+    const [token, setToken] = useState(localStorage.getItem('token'))
 
+    useEffect(() => {
+        if (token) {
+            try {
+                const decoded = jwtDecode(token);
+                setUser(decoded.role);
+                console.log(decoded.role)
+            } catch (err) {
+                console.error("Invalid token", err);
+                setUser('none');
+            }
+        }
+    }, [token]);
     const getItem = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const response = await fetch('http://localhost:3000/cart/', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            const cartItem = await response.json()
-            setCart(cartItem.products)
-        } catch (error) {
-            console.log(error)
+        const key = localStorage.getItem('token')
+        if (user == 'user') {
+            try {
+                const response = await fetch('http://localhost:3000/cart/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${key}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const cartItem = await response.json()
+                setCart(cartItem.products)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
+    getItem()
     const addToCart = async (item, quantity) => {
         try {
             const token = localStorage.getItem('token')
@@ -45,15 +63,10 @@ export const CartProvider = ({ children }) => {
     }
 
     const openCart = () => {
-        const newVisibility = !cartVisibility;
-        setcartVisibility(newVisibility);
-
-        if (!cartVisibility) {
-            getItem();
-        }
+        setcartVisibility((!cartVisibility));
     }
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, cartVisibility, openCart }}>
+        <CartContext.Provider value={{ user, cart, addToCart, removeFromCart, cartVisibility, openCart }}>
             {children}
         </CartContext.Provider>
     )

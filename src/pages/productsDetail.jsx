@@ -1,4 +1,3 @@
-import { jwtDecode } from 'jwt-decode';
 import { Box, Typography, Button, Grid, Paper, IconButton, Modal, TextField, MenuItem } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { getProductsById } from '../api/products'
@@ -8,28 +7,16 @@ import { CartContext } from '../context/CartContext';
 import Navbar from "../components/navbar";
 
 const ProductDetail = () => {
-    const { addToCart } = useContext(CartContext)
+    const { user, addToCart } = useContext(CartContext)
     const { id } = useParams();
     const [product, setProduct] = useState([])
-    const [token, setToken] = useState(localStorage.getItem('token'))
-    const [user, setUser] = useState('none')
     const [openModal, setOpenModal] = useState(false);
 
 
     const handleChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
     };
-    useEffect(() => {
-        if (token) {
-            try {
-                const decoded = jwtDecode(token);
-                setUser(decoded.role);
-            } catch (err) {
-                console.error("Invalid token", err);
-                setUser('none');
-            }
-        }
-    }, [token]);
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {

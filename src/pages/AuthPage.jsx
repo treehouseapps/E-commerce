@@ -58,6 +58,7 @@ const AuthPage = () => {
                 console.log(error)
             }
         }
+        window.location.reload();
     };
 
     return (
