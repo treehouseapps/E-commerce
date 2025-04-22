@@ -29,25 +29,32 @@ const AuthPage = () => {
     const [regPassword, setRegPassword] = useState('123456');
     const [secret, setSecret] = useState('Bekijuniorr');
 
+    const url = 'http://localhost:3000'
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         if (isLogin) {
             try {
-                const response = await fetch('http://localhost:3000/login', {
+                const response = await fetch(url + '/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 })
                 const result = await response.json()
-                localStorage.setItem('token', result.token)
+                console.log(result)
+                if (result.token) {
+                    localStorage.setItem('token', result.token)
+                    setLoading(false)
+                }
+                alert(result.message)
                 setLoading(false)
             } catch (error) {
                 console.log(error)
             }
         } else {
             try {
-                const response = await fetch('http://localhost:3000/adminSignup', {
+                const response = await fetch(url + '/adminSignup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email: regEmail, password: regPassword, secret })

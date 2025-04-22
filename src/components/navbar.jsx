@@ -31,7 +31,7 @@ const Navbar = () => {
                 <Box display="flex" gap={2}>
                     {user && (
                         <>
-                            <Logout onClick={() => { alert('het') }} />
+                            <Logout />
                         </>
                     )}
                     <Link to={Endpoints.products}> <Button variant="text" startIcon={<ShoppingBag />}>Products</Button></Link>
