@@ -29,14 +29,14 @@ const AuthPage = () => {
     const [regPassword, setRegPassword] = useState('123456');
     const [secret, setSecret] = useState('Bekijuniorr');
 
-    const url = 'http://localhost:3000'
+    const url = 'https://e-commerce-api-f9qb.onrender.com/'
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         if (isLogin) {
             try {
-                const response = await fetch(url + '/login', {
+                const response = await fetch(url + 'login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -54,7 +54,7 @@ const AuthPage = () => {
             }
         } else {
             try {
-                const response = await fetch(url + '/adminSignup', {
+                const response = await fetch(url + 'adminSignup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email: regEmail, password: regPassword, secret })
