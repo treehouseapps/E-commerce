@@ -10,7 +10,8 @@ export const CartProvider = ({ children }) => {
     const [cartVisibility, setcartVisibility] = useState(false)
     const [token, setToken] = useState(localStorage.getItem('token'))
 
-    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    const url = 'https://th-ecommerce-api.vercel.app/'
 
     useEffect(() => {
         if (token) {

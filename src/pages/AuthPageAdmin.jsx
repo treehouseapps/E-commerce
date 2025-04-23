@@ -29,7 +29,8 @@ const AuthPage = () => {
     const [regPassword, setRegPassword] = useState('123456');
     const [secret, setSecret] = useState('Bekijuniorr');
 
-    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    const url = 'https://th-ecommerce-api.vercel.app/'
 
     const handleSubmit = async (e) => {
         e.preventDefault();

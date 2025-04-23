@@ -9,7 +9,8 @@ import Navbar from '../components/navbar';
 const UserList = () => {
     const [users, setUsers] = useState([]);
 
-    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    const url = 'https://th-ecommerce-api.vercel.app/'
 
     useEffect(() => {
         const fun = async () => {

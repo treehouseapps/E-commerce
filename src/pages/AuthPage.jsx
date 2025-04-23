@@ -28,7 +28,8 @@ const AuthPage = () => {
     const [regEmail, setRegEmail] = useState('abebe@gmail.com');
     const [regPassword, setRegPassword] = useState('123456');
 
-    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    const url = 'https://th-ecommerce-api.vercel.app/'
 
     const handleSubmit = async (e) => {
         e.preventDefault();

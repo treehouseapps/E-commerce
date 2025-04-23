@@ -25,7 +25,8 @@ const ProductForm = () => {
         category: 'Electronics',
     });
 
-    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    const url = 'https://th-ecommerce-api.vercel.app/'
 
     const handleChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });

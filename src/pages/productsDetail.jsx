@@ -13,7 +13,8 @@ const ProductDetail = () => {
     const [openModal, setOpenModal] = useState(false);
     const [quantities, setQuantities] = useState({});
 
-    const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
+    const url = 'https://th-ecommerce-api.vercel.app/'
 
     const handleChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });

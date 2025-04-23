@@ -1,4 +1,5 @@
-const url = 'https://e-commerce-api-f9qb.onrender.com/products/'
+// const url = 'https://e-commerce-api-f9qb.onrender.com/products/'
+const url = 'https://th-ecommerce-api.vercel.app/'
 export const getAllProducts = async () => {
     try {
         const rawData = await fetch(url);
