@@ -9,8 +9,6 @@ export const CartProvider = ({ children }) => {
     const [user, setUser] = useState([])
     const [cartVisibility, setcartVisibility] = useState(false)
     const [token, setToken] = useState(localStorage.getItem('token'))
-
-    // const url = 'https://e-commerce-api-f9qb.onrender.com/'
     const url = 'https://th-ecommerce-api.vercel.app/'
 
     useEffect(() => {
@@ -25,54 +23,76 @@ export const CartProvider = ({ children }) => {
         }
     }, [token]);
     useEffect(() => {
-        getItem()
     }, [user])
 
     const getItem = async () => {
         if (user == 'user') {
             try {
-                const response = await fetch(url + 'cart/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                })
-                const cartItem = await response.json()
-                setCart(cartItem.products)
+                const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+                // const response = await fetch(url + 'cart/', {
+                //     method: 'GET',
+                //     headers: {
+                //         'Authorization': `Bearer ${token}`,
+                //         'Content-Type': 'application/json'
+                //     }
+                // })
+                // const cartItem = await response.json()
+                // console.log(cartItem)
+                setCart(localCart)
             } catch (error) {
                 console.log(error)
             }
         }
     }
-    const addToCart = async (item, quantity) => {
-        try {
-            const token = localStorage.getItem('token')
-            const response = await fetch(url + 'cart/add', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId: item._id, quantity })
-            })
-            const result = await response.json()
-        } catch (error) {
-            console.log(error)
-        }
-        getItem()
-    }
-    const removeFromCart = async (indexToRemove) => {
-        try {
-            const item = await fetch(url + 'cart/' + indexToRemove, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+    const addToCart = async (product, quantity) => {
+        if (user == 'user') {
+            try {
+                let localCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                const existingIndex = localCart.findIndex(item => item.product._id === product._id);
+
+                if (existingIndex !== -1) {
+                    // Product already exists → update quantity
+                    localCart[existingIndex].quantity += quantity;
+                } else {
+                    // Product not in cart → add new
+                    localCart.push({ product, quantity });
                 }
-            })
-            const result = await item.json()
-            console.log(result.message)
+
+                localStorage.setItem('cart', JSON.stringify(localCart));
+                setCart(localCart);
+
+                // Send to DB in background
+                // fetch(url + 'cart/add', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Authorization': `Bearer ${token}`,
+                //         'Content-Type': 'application/json'
+                //     },
+                //     body: JSON.stringify({ productId: product._id, quantity })
+                // }).catch(console.log);
+            } catch (error) {
+                console.log(error)
+            }
+            getItem()
+        }
+    }
+    const removeFromCart = async (productId) => {
+        try {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const updatedCart = cart.filter(item => item.product._id !== productId);
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            setCart(updatedCart);
+
+            // const item = await fetch(url + 'cart/' + indexToRemove, {
+            //     method: 'DELETE',
+            //     headers: {
+            //         'Authorization': `Bearer ${token}`,
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // const result = await item.json()
+            // console.log(result.message)
         } catch (error) {
             console.log(error)
         }

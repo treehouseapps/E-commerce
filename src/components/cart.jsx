@@ -6,7 +6,6 @@ import { CartContext } from '../context/CartContext';
 const Cart = () => {
     const { cart, removeFromCart } = useContext(CartContext)
     const [totalprice, setTotalPrice] = useState(0);
-
     return (
         <Box
             boxShadow={5}
@@ -44,14 +43,14 @@ const Cart = () => {
                         <Box key={index} display="flex" justifyContent="space-between" alignItems="center" p={1} borderRadius={1} sx={{ backgroundColor: '#f9f9f9', '&:hover': { backgroundColor: '#e3f2fd' } }}>
                             <Box>
                                 <Typography variant="subtitle1" fontWeight="500">
-                                    {item.productId.name}
+                                    {item.product.name}
                                     <Box component="span" ml={1} px={1} py={0.2} borderRadius={1} bgcolor="#1976d2" color="#fff" fontSize="0.75rem">
                                         x{item.quantity}
                                     </Box>
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary">${item.productId.price}</Typography>
+                                <Typography variant="body2" color="textSecondary">${item.product.price}</Typography>
                             </Box>
-                            <IconButton color="error" onClick={() => removeFromCart(item._id)}>
+                            <IconButton color="error" onClick={() => removeFromCart(item.product._id)}>
                                 <DeleteIcon />
                             </IconButton>
                         </Box>
