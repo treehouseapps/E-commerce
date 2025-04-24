@@ -1,10 +1,10 @@
-import { Box, Typography, IconButton, Divider } from '@mui/material';
+import { Box, Typography, IconButton, Divider, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const Cart = () => {
-    const { cart, removeFromCart } = useContext(CartContext)
+    const { cart, removeFromCart, updateCart } = useContext(CartContext)
     const [totalprice, setTotalPrice] = useState(0);
     return (
         <Box
@@ -40,21 +40,58 @@ const Cart = () => {
             >
                 {cart.length > 0 ? (
                     cart.map((item, index) => (
-                        <Box key={index} display="flex" justifyContent="space-between" alignItems="center" p={1} borderRadius={1} sx={{ backgroundColor: '#f9f9f9', '&:hover': { backgroundColor: '#e3f2fd' } }}>
-                            <Box>
-                                <Typography variant="subtitle1" fontWeight="500">
+                        <Box
+                            key={index}
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            p={2}
+                            mb={1}
+                            borderRadius={2}
+                            sx={{
+                                backgroundColor: '#f9f9f9',
+                                '&:hover': { backgroundColor: '#e3f2fd' }
+                            }}
+                        >
+                            <Box flex={1}>
+                                <Typography variant="subtitle1" fontWeight="600">
                                     {item.product.name}
-                                    <Box component="span" ml={1} px={1} py={0.2} borderRadius={1} bgcolor="#1976d2" color="#fff" fontSize="0.75rem">
-                                        x{item.quantity}
-                                    </Box>
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary">${item.product.price}</Typography>
+                                <Box display="flex" alignItems="center" mt={1} gap={1}>
+                                    <IconButton
+                                        onClick={() => updateCart(item.product._id, item.quantity - 1)}
+                                        size="small"
+                                    >
+                                        −
+                                    </IconButton>
+                                    <Box px={2} py={0.5} borderRadius={1} bgcolor="#1976d2" color="#fff">
+                                        {item.quantity}
+                                    </Box>
+                                    <IconButton
+                                        onClick={() => updateCart(item.product._id, item.quantity + 1)}
+                                        size="small"
+                                    >
+                                        +
+                                    </IconButton>
+                                </Box>
                             </Box>
-                            <IconButton color="error" onClick={() => removeFromCart(item.product._id)}>
-                                <DeleteIcon />
-                            </IconButton>
+
+                            <Box display="flex" flexDirection="column" alignItems="flex-end">
+                                <Typography variant="subtitle1" fontWeight="500">
+                                    ${item.product.price * item.quantity}
+                                </Typography>
+                                <IconButton
+                                    color="error"
+                                    onClick={() => removeFromCart(item.product._id)}
+                                    size="small"
+                                    sx={{ mt: 1 }}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Box>
                         </Box>
                     ))
+
                 ) : (
                     <Typography variant="body2" color="textSecondary">Your cart is empty.</Typography>
                 )}

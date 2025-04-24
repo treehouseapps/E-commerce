@@ -26,6 +26,16 @@ export const CartProvider = ({ children }) => {
         getItem()
     }, [user])
 
+    const updateCart = (productId, value) => {
+        const localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
+
+        const existingIndex = localCart.findIndex(item => item.product._id === productId);
+        if (existingIndex !== -1 && value > 0) {
+            localCart[existingIndex].quantity = value;
+            localStorage.setItem(`cart_${user.userId}`, JSON.stringify(localCart));
+            setCart(localCart);
+        }
+    }
     const getItem = async () => {
         if (user.role == 'user') {
 
@@ -105,7 +115,7 @@ export const CartProvider = ({ children }) => {
     }
     if (!cart) { setCart([]) }
     return (
-        <CartContext.Provider value={{ user, cart, addToCart, removeFromCart, cartVisibility, openCart }}>
+        <CartContext.Provider value={{ user, cart, addToCart, updateCart, removeFromCart, cartVisibility, openCart }}>
             {children}
         </CartContext.Provider>
     )
