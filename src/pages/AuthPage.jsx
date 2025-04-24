@@ -46,10 +46,10 @@ const AuthPage = () => {
                 if (result.token) {
                     localStorage.setItem('token', result.token)
                     setLoading(false)
+                    window.location.reload();
                 }
                 alert(result.message)
                 setLoading(false)
-                window.location.reload();
             } catch (error) {
                 console.log(error)
             }
@@ -61,6 +61,7 @@ const AuthPage = () => {
                     body: JSON.stringify({ name, email: regEmail, password: regPassword })
                 });
                 const result = await response.json()
+                alert(result.message)
                 setLoading(false)
 
             } catch (error) {

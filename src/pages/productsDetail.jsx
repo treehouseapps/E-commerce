@@ -139,7 +139,7 @@ const ProductDetail = () => {
                         </CardActions>
                     </Grid>
                 </Grid>
-                {user == 'admin' && (
+                {user.role == 'admin' && (
                     <>
                         <IconButton
                             sx={{ position: 'absolute', top: '20%', right: 16, color: 'error.main' }}

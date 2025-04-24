@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                setUser(decoded.role);
+                setUser(decoded);
             } catch (err) {
                 console.error("Invalid token", err);
                 setUser('none');
@@ -23,12 +23,14 @@ export const CartProvider = ({ children }) => {
         }
     }, [token]);
     useEffect(() => {
+        getItem()
     }, [user])
 
     const getItem = async () => {
-        if (user == 'user') {
+        if (user.role == 'user') {
+
             try {
-                const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+                const localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
                 // const response = await fetch(url + 'cart/', {
                 //     method: 'GET',
                 //     headers: {
@@ -37,7 +39,6 @@ export const CartProvider = ({ children }) => {
                 //     }
                 // })
                 // const cartItem = await response.json()
-                // console.log(cartItem)
                 setCart(localCart)
             } catch (error) {
                 console.log(error)
@@ -45,9 +46,9 @@ export const CartProvider = ({ children }) => {
         }
     }
     const addToCart = async (product, quantity) => {
-        if (user == 'user') {
+        if (user.role == 'user') {
             try {
-                let localCart = JSON.parse(localStorage.getItem('cart')) || [];
+                let localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
 
                 const existingIndex = localCart.findIndex(item => item.product._id === product._id);
 
@@ -59,7 +60,7 @@ export const CartProvider = ({ children }) => {
                     localCart.push({ product, quantity });
                 }
 
-                localStorage.setItem('cart', JSON.stringify(localCart));
+                localStorage.setItem(`cart_${user.userId}`, JSON.stringify(localCart));
                 setCart(localCart);
 
                 // Send to DB in background
@@ -79,9 +80,9 @@ export const CartProvider = ({ children }) => {
     }
     const removeFromCart = async (productId) => {
         try {
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
             const updatedCart = cart.filter(item => item.product._id !== productId);
-            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            localStorage.setItem(`cart_${user.userId}`, JSON.stringify(updatedCart));
             setCart(updatedCart);
 
             // const item = await fetch(url + 'cart/' + indexToRemove, {

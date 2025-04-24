@@ -61,6 +61,7 @@ const AuthPage = () => {
                     body: JSON.stringify({ name, email: regEmail, password: regPassword, secret })
                 });
                 const result = await response.json()
+                alert(result.message)
                 setLoading(false)
 
             } catch (error) {
