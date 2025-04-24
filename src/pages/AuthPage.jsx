@@ -42,7 +42,6 @@ const AuthPage = () => {
                     body: JSON.stringify({ email, password })
                 })
                 const result = await response.json()
-                console.log(result)
 
                 if (result.token) {
                     localStorage.setItem('token', result.token)
@@ -50,6 +49,7 @@ const AuthPage = () => {
                 }
                 alert(result.message)
                 setLoading(false)
+                window.location.reload();
             } catch (error) {
                 console.log(error)
             }
