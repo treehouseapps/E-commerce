@@ -41,14 +41,6 @@ export const CartProvider = ({ children }) => {
 
             try {
                 const localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
-                // const response = await fetch(url + 'cart/', {
-                //     method: 'GET',
-                //     headers: {
-                //         'Authorization': `Bearer ${token}`,
-                //         'Content-Type': 'application/json'
-                //     }
-                // })
-                // const cartItem = await response.json()
                 setCart(localCart)
             } catch (error) {
                 console.log(error)
@@ -72,16 +64,6 @@ export const CartProvider = ({ children }) => {
 
                 localStorage.setItem(`cart_${user.userId}`, JSON.stringify(localCart));
                 setCart(localCart);
-
-                // Send to DB in background
-                // fetch(url + 'cart/add', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Authorization': `Bearer ${token}`,
-                //         'Content-Type': 'application/json'
-                //     },
-                //     body: JSON.stringify({ productId: product._id, quantity })
-                // }).catch(console.log);
             } catch (error) {
                 console.log(error)
             }
@@ -94,16 +76,6 @@ export const CartProvider = ({ children }) => {
             const updatedCart = cart.filter(item => item.product._id !== productId);
             localStorage.setItem(`cart_${user.userId}`, JSON.stringify(updatedCart));
             setCart(updatedCart);
-
-            // const item = await fetch(url + 'cart/' + indexToRemove, {
-            //     method: 'DELETE',
-            //     headers: {
-            //         'Authorization': `Bearer ${token}`,
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // const result = await item.json()
-            // console.log(result.message)
         } catch (error) {
             console.log(error)
         }
