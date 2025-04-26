@@ -75,7 +75,7 @@ const AuthPage = () => {
             <Navbar />
             <Container maxWidth="sm">
                 <Paper elevation={3} sx={{ padding: 4, marginTop: 10 }}>
-                    <Typography variant="h4" align="center" gutterBottom>
+                    <Typography variant="h4" align="center" gutterBottom fontFamily={'Quicksand'} fontWeight={600}>
                         {isLogin ? (
                             <>
                                 <LoginIcon sx={{ fontSize: 40, verticalAlign: 'middle' }} /> Login
@@ -177,14 +177,17 @@ const AuthPage = () => {
                             fullWidth
                             type="submit"
                             variant="contained"
-                            sx={{ mt: 3 }}
+                            sx={{
+                                mt: 3, backgroundColor: '#ff1e00',
+                                color: 'white',
+                            }}
                             startIcon={isLogin ? <LoginIcon /> : <PersonAddIcon />}
                         >
                             {loading ? 'Submitting...' : isLogin ? 'Login' : 'Register'}
 
                         </Button>
                     </Box>
-                    <Typography align="center" sx={{ mt: 2 }}>
+                    <Typography align="center" sx={{ mt: 2 }} fontFamily={'Quicksand'}>
                         {isLogin ? (
                             <>
                                 Don’t have an account?{' '}
@@ -202,7 +205,7 @@ const AuthPage = () => {
                         )}
                     </Typography>
                 </Paper>
-            </Container>
+            </Container >
         </>
     );
 };

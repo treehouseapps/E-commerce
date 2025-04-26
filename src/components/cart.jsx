@@ -16,7 +16,6 @@ const Cart = () => {
     return (
         <Box
             boxShadow={5}
-            border="1px solid #1976d2"
             display="flex"
             flexDirection="column"
             gap={2}
@@ -32,7 +31,7 @@ const Cart = () => {
                 overflow: 'hidden',
             }}
         >
-            <Typography variant="h5" fontWeight="bold" color="primary">🛒 Your Cart</Typography>
+            <Typography variant="h5" fontWeight="bold" color="#ff1e00" fontFamily={'Quicksand'}>🛒 Your Cart</Typography>
             <Box
                 flex={1}
                 overflow="auto"
@@ -61,7 +60,7 @@ const Cart = () => {
                             }}
                         >
                             <Box flex={1}>
-                                <Typography variant="subtitle1" fontWeight="600">
+                                <Typography variant="subtitle1" fontWeight="600" fontFamily={'Quicksand'}>
                                     {item.product.name}
                                 </Typography>
                                 <Box display="flex" alignItems="center" mt={1} gap={1}>
@@ -71,7 +70,7 @@ const Cart = () => {
                                     >
                                         −
                                     </IconButton>
-                                    <Box px={2} py={0.5} borderRadius={1} bgcolor="#1976d2" color="#fff">
+                                    <Box px={2} py={0.5} borderRadius={1} border="2px solid #333" color="black">
                                         {item.quantity}
                                     </Box>
                                     <IconButton
@@ -91,7 +90,7 @@ const Cart = () => {
                                     color="error"
                                     onClick={() => removeFromCart(item.product._id)}
                                     size="small"
-                                    sx={{ mt: 1 }}
+                                    sx={{ mt: 1, color: 'ff1e00', backgroundColor: 'ff1e00' }}
                                 >
                                     <DeleteIcon />
                                 </IconButton>
@@ -105,10 +104,24 @@ const Cart = () => {
             </Box>
             <Divider />
             <Box mt="auto" p={1} bgcolor="#fafafa" borderRadius={2} boxShadow={1}>
-                <Typography variant="subtitle1" fontWeight="bold">Total: ${totalprice.toFixed(2)}</Typography>
-                <button className='btn btn-outline-primary w-100' style={{ marginTop: '.5rem', padding: '.6rem', borderRadius: '8px' }}>
+                <Typography variant="subtitle1" fontWeight="bold" fontFamily={'Quicksand'}>Total: ${totalprice.toFixed(2)}</Typography>
+                <button
+                    className='w-100'
+                    style={{
+                        marginTop: '.5rem',
+                        padding: '.6rem',
+                        borderRadius: '8px',
+                        backgroundColor: '#ff1e00',
+                        color: 'white',
+                        fontFamily: 'Quicksand',
+                        fontWeight: 'bold',
+                        border: 'none',
+                        cursor: 'pointer'
+                    }}
+                >
                     Pay Now
                 </button>
+
             </Box>
         </Box>
     );
