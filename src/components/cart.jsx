@@ -1,8 +1,9 @@
-import { Box, Typography, IconButton, Divider, TextField } from '@mui/material';
+import { Box, Typography, IconButton, Divider, } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useContext, useEffect } from 'react';
 import { CartContext } from '../context/CartContext';
-
+import Button from '../components/Button'
+const link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const Cart = () => {
     const { cart, removeFromCart, updateCart } = useContext(CartContext)
     const [totalprice, setTotalPrice] = useState(0);
@@ -105,23 +106,11 @@ const Cart = () => {
             <Divider />
             <Box mt="auto" p={1} bgcolor="#fafafa" borderRadius={2} boxShadow={1}>
                 <Typography variant="subtitle1" fontWeight="bold" fontFamily={'Quicksand'}>Total: ${totalprice.toFixed(2)}</Typography>
-                <button
-                    className='w-100'
-                    style={{
+                <Button onClick={() => window.location.href = link}
+                    sx={{
                         marginTop: '.5rem',
                         padding: '.6rem',
-                        borderRadius: '8px',
-                        backgroundColor: '#ff1e00',
-                        color: 'white',
-                        fontFamily: 'Quicksand',
-                        fontWeight: 'bold',
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Pay Now
-                </button>
-
+                    }} text='Check Out' />
             </Box>
         </Box>
     );

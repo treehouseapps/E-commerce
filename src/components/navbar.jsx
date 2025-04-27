@@ -5,7 +5,9 @@ import { CartContext } from '../context/CartContext';
 import Cart from "../components/cart";
 import { Link } from "react-router-dom";
 import { Endpoints } from "../api/endpoints";
-import Logout from "./logoutBtn";
+import CustomButton from "./Button";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const Navbar = () => {
     const { cart, cartVisibility, openCart } = useContext(CartContext)
@@ -15,11 +17,15 @@ const Navbar = () => {
         const token = localStorage.getItem('token');
         setUser(token);
     }, []);
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    }
     return (
         <>
             <Box
                 padding={2}
+                backgroundColor={'white'}
                 width="100%"
                 display="flex"
                 justifyContent="space-between"
@@ -30,11 +36,7 @@ const Navbar = () => {
                     <Box display={'inline-flex'} fontFamily={'Quicksand'} fontWeight={'bolder'}>Shopify<Typography color="#f43a09" fontSize={'2rem'} >
                         <b>.</b></Typography></Box></Typography ></Link >
                 <Box display="flex" gap={2} alignItems={'center'} >
-                    {user && (
-                        <>
-                            <Logout />
-                        </>
-                    )} {/* <Link to={Endpoints.productForm}> <Button variant="text" startIcon={<ShoppingBag />}>Prod Form</Button></Link>
+                    {/* <Link to={Endpoints.productForm}> <Button variant="text" startIcon={<ShoppingBag />}>Prod Form</Button></Link>
                     <Link to={Endpoints.users}> <Button variant="text" startIcon={<ShoppingBag />}>Users</Button></Link>
                     <Link to={Endpoints.AuthAdmin}> <Button variant="text" startIcon={<Search />}>Admin</Button></Link> */}
                     <Stack direction="row" spacing={2} alignItems="center">
@@ -55,7 +57,7 @@ const Navbar = () => {
                                 }}
                             />
                         </FormControl>
-
+                        <Link to={Endpoints.Home}><Button sx={{ color: 'black' }}><Typography fontFamily={'Quicksand'}>Home</Typography></Button></Link>
                         <Link to={Endpoints.products}>
                             <Button
                                 variant="text"
@@ -67,7 +69,7 @@ const Navbar = () => {
                                 startIcon={<ShoppingBag />}
                             >
                                 <Box display="flex" alignItems="center">
-                                    Products
+                                    <Typography fontFamily={'Quicksand'}>Products</Typography>
                                     <FiberManualRecord
                                         sx={{
                                             fontSize: '0.5rem',
@@ -91,7 +93,7 @@ const Navbar = () => {
                                 }}
                                 startIcon={<ContactSupport />}
                             >
-                                Contact Us
+                                <Typography fontFamily={'Quicksand'}>Contact Us</Typography>
                             </Button>
                         </Link>
 
@@ -114,9 +116,13 @@ const Navbar = () => {
                             }
                             onClick={() => { openCart() }}
                         >
-                            Cart
+                            <Typography fontFamily={'Quicksand'}>Cart</Typography>
                         </Button>
-
+                        {user && (
+                            <>
+                                <CustomButton onClick={handleLogout} text='Logout' icon={<LogoutIcon />} />
+                            </>
+                        )}
                         <Link to={Endpoints.Auth}>
                             <Button
                                 variant="text"

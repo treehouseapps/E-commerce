@@ -6,10 +6,12 @@ import Products from '../pages/products';
 import Users from '../pages/UserList';
 import ProductForm from '../pages/ProductForm';
 import { Endpoints } from '../api/endpoints';
+import Home from '../pages/Home';
 
 function App() {
     return (
         <Routes>
+            <Route path={Endpoints.Home} element={<Home />} />
             <Route path={Endpoints.Auth} element={<AuthPage />} />
             <Route path={Endpoints.AuthAdmin} element={<AuthPageAdmin />} />
             <Route path={Endpoints.products} element={<Products />} />

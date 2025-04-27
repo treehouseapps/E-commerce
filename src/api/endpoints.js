@@ -1,5 +1,6 @@
 export const Endpoints = {
-    Auth: '/',
+    Home: '/',
+    Auth: '/login',
     AuthAdmin: '/admin',
     signup: '/signup',
     users: '/users',

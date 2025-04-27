@@ -1,14 +1,13 @@
-import { Grid, Box, Card, CardContent, CardActions, Typography, Button } from "@mui/material";
+import { Grid, Box, Card, CardContent, CardActions, Typography } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../api/products'
 import { useEffect, useState, useContext } from "react";
 import { CartContext } from '../context/CartContext';
-
+import Button from './Button'
 const Products = () => {
     const { addToCart } = useContext(CartContext)
     const [products, setProducts] = useState([])
     const [quantities, setQuantities] = useState({});
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -60,14 +59,9 @@ const Products = () => {
                                             marginRight: '10px',
                                         }}
                                     />
-                                    <Button
-                                        variant="contained"
-                                        fullWidth
-                                        onClick={() => addToCart(item, quantities[item._id] || 1)}
-                                        sx={{ width: '70%' }}
-                                    >
-                                        Add to Cart
-                                    </Button>
+                                    <Button onClick={() => addToCart(item, quantities[item._id] || 1)}
+                                        sx={{ width: '70%' }} text='Add to Cart' />
+
                                 </Box>
                             </CardActions>
                         </Card>

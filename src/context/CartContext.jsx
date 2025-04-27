@@ -3,13 +3,12 @@ import React, { createContext, useEffect, useState } from 'react';
 
 export const CartContext = createContext()
 
-export const CartProvider = ({ children }) => {
+const CartProvider = ({ children }) => {
 
     const [cart, setCart] = useState([])
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState([null])
     const [cartVisibility, setcartVisibility] = useState(false)
     const [token, setToken] = useState(localStorage.getItem('token'))
-    const url = 'https://th-ecommerce-api.vercel.app/'
 
     useEffect(() => {
         if (token) {
@@ -23,22 +22,23 @@ export const CartProvider = ({ children }) => {
         }
     }, [token]);
     useEffect(() => {
-        getItem()
+        if (user?.role === 'user') {
+            getItem()
+        }
     }, [user])
 
     const updateCart = (productId, value) => {
-        const localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
+        const localCart = [...cart];
 
         const existingIndex = localCart.findIndex(item => item.product._id === productId);
         if (existingIndex !== -1 && value > 0) {
             localCart[existingIndex].quantity = value;
-            localStorage.setItem(`cart_${user.userId}`, JSON.stringify(localCart));
+            if (user?.role == 'user') { localStorage.setItem(`cart_${user.userId}`, JSON.stringify(localCart)); }
             setCart(localCart);
         }
     }
     const getItem = async () => {
         if (user.role == 'user') {
-
             try {
                 const localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
                 setCart(localCart)
@@ -48,33 +48,31 @@ export const CartProvider = ({ children }) => {
         }
     }
     const addToCart = async (product, quantity) => {
-        if (user.role == 'user') {
-            try {
-                let localCart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
 
-                const existingIndex = localCart.findIndex(item => item.product._id === product._id);
+        try {
+            let updatedCart = [...cart];
+            const existingIndex = updatedCart.findIndex(item => item.product._id === product._id);
 
-                if (existingIndex !== -1) {
-                    // Product already exists → update quantity
-                    localCart[existingIndex].quantity += quantity;
-                } else {
-                    // Product not in cart → add new
-                    localCart.push({ product, quantity });
-                }
-
-                localStorage.setItem(`cart_${user.userId}`, JSON.stringify(localCart));
-                setCart(localCart);
-            } catch (error) {
-                console.log(error)
+            if (existingIndex !== -1) {
+                updatedCart[existingIndex].quantity += quantity;
+            } else {
+                updatedCart.push({ product, quantity });
             }
-            getItem()
+
+            if (user?.role === 'user') {
+                localStorage.setItem(`cart_${user.userId}`, JSON.stringify(updatedCart));
+            }
+            setCart(updatedCart);
+        } catch (error) {
+            console.log(error)
         }
+        getItem()
     }
+
     const removeFromCart = async (productId) => {
         try {
-            const cart = JSON.parse(localStorage.getItem(`cart_${user.userId}`)) || [];
             const updatedCart = cart.filter(item => item.product._id !== productId);
-            localStorage.setItem(`cart_${user.userId}`, JSON.stringify(updatedCart));
+            if (user?.role === 'user') { localStorage.setItem(`cart_${user.userId}`, JSON.stringify(updatedCart)); }
             setCart(updatedCart);
         } catch (error) {
             console.log(error)
@@ -92,3 +90,5 @@ export const CartProvider = ({ children }) => {
         </CartContext.Provider>
     )
 }
+
+export default CartProvider

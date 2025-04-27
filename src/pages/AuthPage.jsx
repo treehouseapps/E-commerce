@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
     Container,
     TextField,
-    Button,
     Typography,
     Box,
     Paper,
@@ -15,6 +14,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Navbar from '../components/navbar';
 import { Person } from '@mui/icons-material';
+import Button from '../components/Button'
 
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -48,7 +48,6 @@ const AuthPage = () => {
                     setLoading(false)
                     window.location.reload();
                 }
-                alert(result.message)
                 setLoading(false)
             } catch (error) {
                 console.log(error)
@@ -87,7 +86,7 @@ const AuthPage = () => {
                         )}
                     </Typography>
 
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }} noValidate>
+                    <Box component="form" sx={{ mt: 2 }} noValidate>
                         {isLogin ? (
                             <>
                                 <TextField
@@ -172,20 +171,10 @@ const AuthPage = () => {
                                 />
                             </>
                         )}
-
-                        <Button
-                            fullWidth
-                            type="submit"
-                            variant="contained"
-                            sx={{
-                                mt: 3, backgroundColor: '#ff1e00',
-                                color: 'white',
-                            }}
-                            startIcon={isLogin ? <LoginIcon /> : <PersonAddIcon />}
-                        >
-                            {loading ? 'Submitting...' : isLogin ? 'Login' : 'Register'}
-
-                        </Button>
+                        <Button onClick={handleSubmit} text={loading ? 'Submitting...' : isLogin ? 'Login' : 'Register'}
+                            sx={{ mt: 3, width: '100%' }}
+                            icon={isLogin ? <LoginIcon /> : <PersonAddIcon />}
+                        />
                     </Box>
                     <Typography align="center" sx={{ mt: 2 }} fontFamily={'Quicksand'}>
                         {isLogin ? (
