@@ -57,14 +57,18 @@ const Navbar = () => {
                                 }}
                             />
                         </FormControl>
-                        <Link to={Endpoints.Home}><Button sx={{ color: 'black' }}><Typography fontFamily={'Quicksand'}>Home</Typography></Button></Link>
+                        <Link to={Endpoints.Home}>
+                            <Button sx={{
+                                color: 'black', fontFamily: 'Quicksand',
+                                "&:hover": { transform: "scale(1.1)", transition: '.5s' }
+                            }}><Typography fontFamily={'Quicksand'}>Home</Typography></Button></Link>
                         <Link to={Endpoints.products}>
                             <Button
                                 variant="text"
                                 sx={{
                                     color: "black",
                                     fontFamily: 'Quicksand',
-                                    "&:hover": { transform: "scale(1.1)" }
+                                    "&:hover": { transform: "scale(1.1)", transition: '.5s' }
                                 }}
                                 startIcon={<ShoppingBag />}
                             >
@@ -83,13 +87,13 @@ const Navbar = () => {
                             </Button>
                         </Link>
 
-                        <Link>
+                        <Link to={Endpoints.Contact}>
                             <Button
                                 variant="text"
                                 sx={{
                                     color: "black",
                                     fontFamily: 'Quicksand',
-                                    "&:hover": { transform: "scale(1.1)" }
+                                    "&:hover": { transform: "scale(1.1)", transition: '.5s' }
                                 }}
                                 startIcon={<ContactSupport />}
                             >
@@ -102,7 +106,7 @@ const Navbar = () => {
                             sx={{
                                 color: "black",
                                 fontFamily: 'Quicksand',
-                                "&:hover": { transform: "scale(1.1)" }
+                                "&:hover": { transform: "scale(1.1)", transition: '.5s' }
                             }}
                             startIcon={
                                 <Badge badgeContent={cart?.length || 0} sx={{
@@ -139,7 +143,7 @@ const Navbar = () => {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     fontFamily: 'Quicksand',
-                                    "&:hover": { transform: "scale(1.1)" }
+                                    "&:hover": { transform: "scale(1.1)", transition: '.5s' }
                                 }}
                             >
                                 <Person />

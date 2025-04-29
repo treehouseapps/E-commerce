@@ -7,6 +7,7 @@ import Users from '../pages/UserList';
 import ProductForm from '../pages/ProductForm';
 import { Endpoints } from '../api/endpoints';
 import Home from '../pages/Home';
+import Contact from '../pages/Contact';
 
 function App() {
     return (
@@ -15,9 +16,10 @@ function App() {
             <Route path={Endpoints.Auth} element={<AuthPage />} />
             <Route path={Endpoints.AuthAdmin} element={<AuthPageAdmin />} />
             <Route path={Endpoints.products} element={<Products />} />
+            <Route path={Endpoints.Contact} element={<Contact />} />
             <Route path={Endpoints.users} element={<Users />} />
             <Route path={Endpoints.productForm} element={<ProductForm />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path={Endpoints.productId} element={<ProductDetail />} />
         </Routes>
     );
 }

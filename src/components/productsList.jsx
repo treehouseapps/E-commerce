@@ -8,6 +8,8 @@ const Products = () => {
     const { addToCart } = useContext(CartContext)
     const [products, setProducts] = useState([])
     const [quantities, setQuantities] = useState({});
+    const [hoveredItem, setHoveredItem] = useState(null);
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -28,50 +30,86 @@ const Products = () => {
         }));
     };
 
+    const handleMouseEnter = (id) => {
+        setHoveredItem(id);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredItem(null);
+    };
     return (
-        <Grid container spacing={3} padding={3} sx={{ width: '100%' }}>
+        <Grid container spacing={3} padding={3} sx={{ width: '100%', margin: '1rem 1    rem' }}>
             {products.length > 0 ? (
                 products.map((item) => (
-                    <Grid item xs={12} sm={6} md={3} key={item._id}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 2, boxShadow: 3 }}>
-                            <Link to={`/products/${item._id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                                <CardContent>
-                                    <Typography variant="h6" gutterBottom>{item.name}</Typography>
-                                    <Typography variant="body2" color="textSecondary" mb={1}>
-                                        {item.description.length > 100 ? item.description.slice(0, 100) + '...' : item.description}
-                                    </Typography>
-                                    <Typography variant="subtitle1" fontWeight="bold">Price: ${item.price}</Typography>
-                                    <Typography variant="caption" color="textSecondary">Category: {item.category}</Typography>
-                                </CardContent>
-                            </Link>
-                            <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '95%' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                                    <input
-                                        type="number"
-                                        min="1"
-                                        value={quantities[item._id] || 1}
-                                        onChange={(e) => handleQuantityChange(item._id, parseInt(e.target.value))}
-                                        style={{
-                                            width: '30%',
-                                            padding: '8px',
-                                            borderRadius: '6px',
-                                            border: '1px solid #ccc',
-                                            marginRight: '10px',
-                                        }}
-                                    />
-                                    <Button onClick={() => addToCart(item, quantities[item._id] || 1)}
-                                        sx={{ width: '70%' }} text='Add to Cart' />
+                    <Grid item xs={12} sm={6} md={3} key={item._id}
+                        onMouseEnter={() => handleMouseEnter(item._id)}
+                        onMouseLeave={handleMouseLeave}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '0px', boxShadow: 3 }}>
 
-                                </Box>
-                            </CardActions>
+                            <Link to={`/products/${item._id}`} style={{ textDecoration: 'none', color: 'black', }}>
+                                <CardContent
+                                    sx={{ height: '8rem' }} >
+                                    <Box
+                                        display={'flex'}
+                                        justifyContent={'center'}
+                                        sx={{ "&:hover": { transform: "scale(1.2)", transition: '.5s' } }}>
+                                        <img
+                                            src={item.img}
+                                            alt=""
+                                            style={{
+                                                width: '150px',
+                                                height: '150px',
+                                                objectFit: 'contain',
+
+                                            }}
+                                        />
+                                    </Box>
+                                </CardContent>
+                                <hr />
+                            </Link>
+                            <Box pl={1}>
+                                {hoveredItem === item._id ? (
+                                    <CardActions sx={{ width: '95%' }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                value={quantities[item._id] || 1}
+                                                onChange={(e) => handleQuantityChange(item._id, parseInt(e.target.value))}
+                                                style={{
+                                                    width: '10%',
+                                                    padding: '5px',
+                                                    borderRadius: '6px',
+                                                    border: '1px solid #ccc',
+                                                    marginRight: '10px',
+                                                }}
+                                            />
+                                            <Button onClick={() => addToCart(item, quantities[item._id] || 1)}
+                                                sx={{ width: '90%', padding: '2px' }} text='Add to Cart' />
+
+                                        </Box>
+                                    </CardActions>
+                                ) : (
+                                    <Box pl={1} alignContent={'end'}>
+                                        <Typography fontFamily={'Trebuchet MS'} fontSize={14} sx={{
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            textOverflow: 'ellipsis',
+                                        }}>{item.name}</Typography>
+                                        <Typography variant="subtitle1" fontFamily={'Trebuchet MS'} fontSize={13}>Price: ${item.price}</Typography>
+                                    </Box>
+
+                                )}
+                            </Box>
+
+
                         </Card>
                     </Grid>
                 ))
             ) : (
                 <Typography variant="body2" color="textSecondary">Your Product is empty.</Typography>
             )}
-        </Grid>
-
+        </Grid >
     );
 }
 

@@ -4,7 +4,7 @@ const CustomButton = ({ sx, icon, onClick, className, text }) => {
     return (
         <MuiButton
             variant="contained"
-            sx={{ ...sx, backgroundColor: '#2a9d8f' }}
+            sx={{ ...sx, fontFamily: 'Quicksand', backgroundColor: '#2a9d8f' }}
             startIcon={icon}
             onClick={onClick}
             className={className}

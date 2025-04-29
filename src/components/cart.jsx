@@ -85,7 +85,7 @@ const Cart = () => {
 
                             <Box display="flex" flexDirection="column" alignItems="flex-end">
                                 <Typography variant="subtitle1" fontWeight="500">
-                                    ${item.product.price * item.quantity}
+                                    ${(item.product.price * item.quantity).toFixed(2)}
                                 </Typography>
                                 <IconButton
                                     color="error"

@@ -16,6 +16,7 @@ import {
     Save,
 } from '@mui/icons-material';
 import Navbar from '../components/navbar';
+import Footer from '../components/footer';
 
 const ProductForm = () => {
     const [product, setProduct] = useState({
@@ -158,6 +159,7 @@ const ProductForm = () => {
                     </Button>
                 </Box>
             </Container>
+            <Footer />
         </>
     );
 };

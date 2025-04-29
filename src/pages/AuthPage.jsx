@@ -15,6 +15,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Navbar from '../components/navbar';
 import { Person } from '@mui/icons-material';
 import Button from '../components/Button'
+import Footer from '../components/footer';
 
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -195,6 +196,7 @@ const AuthPage = () => {
                     </Typography>
                 </Paper>
             </Container >
+            <Footer />
         </>
     );
 };

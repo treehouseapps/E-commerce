@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import Navbar from '../components/navbar';
 import Button from '../components/Button';
+import Footer from '../components/footer';
 
 const PageWithBlurredBackground = () => {
     return (
@@ -14,7 +15,7 @@ const PageWithBlurredBackground = () => {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        backgroundImage: 'url("./cover.jpg")',
+                        backgroundImage: 'url("./cover1.jpg")',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         filter: 'blur(2px)',
@@ -41,7 +42,7 @@ const PageWithBlurredBackground = () => {
                     mt={13} ml={20} width={'50%'}>
                     <Typography p={'1px 15px'} width={'max-content'} sx={{ backgroundColor: '#f43a09', color: 'white' }}>Best Prices</Typography>
                     <Typography variant='h2' mt={2} fontFamily={'Trebuchet MS'}>Incredible Prices on All Your Favorite Items</Typography>
-                    <Typography width={'max-content'} p={1} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>Get more for less on selected brands</Typography>
+                    <Typography width={'max-content'} fontFamily={'Quicksand'} fontWeight={800} p={1} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.4)' }}>Get more for less on selected brands</Typography>
                     <Button text='Shop Now' sx={{
                         borderRadius: '20px',
                         marginTop: '20px', padding: '0.5rem 1rem',
@@ -53,7 +54,7 @@ const PageWithBlurredBackground = () => {
                 <Box sx={{ height: '25rem', backgroundColor: 'black' }}>
                     <Typography fontFamily={'quicksand'} color='white' variant='h4' width={400}
                         ml={10} mt={10}>Need Help? Check Out Our Help Center</Typography>
-                    <Typography fontFamily={'quicksand'} color='white' fontSize={18} width={400}
+                    <Typography fontFamily={'Quicksand'} color='white' fontSize={18} width={400}
                         ml={10} mt={5}
 
                     >I'm a paragraph. Click here to add your own text and edit me. Let your users get to know you.</Typography>
@@ -70,6 +71,7 @@ const PageWithBlurredBackground = () => {
                         I’m a great place for you to tell a story and let your users know a little more about you.</Typography>
                 </Box>
             </Box>
+            <Footer />
         </>
     );
 };
