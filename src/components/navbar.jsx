@@ -1,12 +1,11 @@
-import { Bolt, ContactSupport, FiberManualRecord, Person, Search, ShoppingBag, ShoppingCart } from "@mui/icons-material";
-import { Typography, Button, Box, Badge, FormControl, InputLabel, Input, InputAdornment, IconButton, Stack } from "@mui/material";
+import { Home, Logout, ContactSupport, FiberManualRecord, Person, Search, ShoppingBag, ShoppingCart } from "@mui/icons-material";
+import { Typography, Button, Box, Badge, FormControl, Input, InputAdornment, Stack } from "@mui/material";
 import { use, useContext, useEffect, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import Cart from "../components/cart";
 import { Link } from "react-router-dom";
 import { Endpoints } from "../api/endpoints";
 import CustomButton from "./Button";
-import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Navbar = () => {
@@ -61,7 +60,7 @@ const Navbar = () => {
                             <Button sx={{
                                 color: 'black', fontFamily: 'Quicksand',
                                 "&:hover": { transform: "scale(1.1)", transition: '.5s' }
-                            }}><Typography fontFamily={'Quicksand'}>Home</Typography></Button></Link>
+                            }} startIcon={<Home />}><Typography fontFamily={'Quicksand'}>Home</Typography></Button></Link>
                         <Link to={Endpoints.products}>
                             <Button
                                 variant="text"
@@ -112,7 +111,7 @@ const Navbar = () => {
                                 <Badge badgeContent={cart?.length || 0} sx={{
                                     "& .MuiBadge-badge": {
                                         backgroundColor: "#f43a09",
-                                        color: "white" // text color inside badge
+                                        color: "white"
                                     }
                                 }}>
                                     <ShoppingCart />
@@ -124,7 +123,7 @@ const Navbar = () => {
                         </Button>
                         {user && (
                             <>
-                                <CustomButton onClick={handleLogout} text='Logout' icon={<LogoutIcon />} />
+                                <CustomButton onClick={handleLogout} text='Logout' icon={<Logout />} />
                             </>
                         )}
                         <Link to={Endpoints.Auth}>
