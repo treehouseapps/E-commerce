@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+    const currentDate = new Date().getFullYear()
     return (
         <>
             <Box sx={{ backgroundColor: '#eaeaea' }} mt={5}>
@@ -253,7 +254,12 @@ const Footer = () => {
                     sx={{
                         backgroundColor: '#eaeaea',
                     }} >
-                    <Typography color="#333" fontFamily={'Quicksand'} fontWeight={'700'} letterSpacing={1} sx={{ wordSpacing: '2px' }}>Copyright © 2025 Shopify | Powered by <Link to='https://github.com/treehouseapps'>TreehouseApps</Link> </Typography>
+                    <Typography color="#333" fontFamily={'Quicksand'}
+                        fontWeight={'700'} letterSpacing={1}
+                        sx={{ wordSpacing: '2px' }}>
+                        Copyright © {currentDate} Shopify | Powered by
+                        <Link to='https://github.com/treehouseapps'>TreehouseApps</Link>
+                    </Typography>
                 </Box>
             </Box>
         </>
