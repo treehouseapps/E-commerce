@@ -21,15 +21,15 @@ const Contact = () => {
                                 Get in touch
                             </Typography>
                             <Box display="flex" alignItems="center" mb={2}>
-                                <Email sx={{ mr: 1, color: 'primary.main' }} />
+                                <Email sx={{ mr: 1, color: '#f43a09' }} />
                                 <Typography>Email: bbekijunior@gmail.com</Typography>
                             </Box>
                             <Box display="flex" alignItems="center" mb={2}>
-                                <Phone sx={{ mr: 1, color: 'primary.main' }} />
+                                <Phone sx={{ mr: 1, color: '#f43a09' }} />
                                 <Typography>Phone: +123 456 7890</Typography>
                             </Box>
                             <Box display="flex" alignItems="center">
-                                <LocationOn sx={{ mr: 1, color: 'primary.main' }} />
+                                <LocationOn sx={{ mr: 1, color: '#f43a09' }} />
                                 <Typography>Addis Abeba, Ethiopia</Typography>
                             </Box>
                         </Grid>

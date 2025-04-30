@@ -1,4 +1,4 @@
-import { Grid, Box, Card, CardContent, CardActions, Typography } from "@mui/material";
+import { Grid, Box, Card, CardContent, CardActions, Typography, Skeleton } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../api/products'
 import { useEffect, useState, useContext } from "react";
@@ -9,7 +9,7 @@ const Products = () => {
     const [products, setProducts] = useState([])
     const [quantities, setQuantities] = useState({});
     const [hoveredItem, setHoveredItem] = useState(null);
-
+    let array = [1, 2, 3, 4, 5, 6, 7, 8]
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -38,7 +38,7 @@ const Products = () => {
         setHoveredItem(null);
     };
     return (
-        <Grid container spacing={3} padding={3} sx={{ width: '100%', margin: '1rem 1    rem' }}>
+        <Grid container spacing={3} padding={3} sx={{ width: '100%', margin: '1rem 1rem' }}>
             {products.length > 0 ? (
                 products.map((item) => (
                     <Grid item xs={12} sm={6} md={3} key={item._id}
@@ -107,8 +107,22 @@ const Products = () => {
                     </Grid>
                 ))
             ) : (
-                <Typography variant="body2" color="textSecondary">Your Product is empty.</Typography>
-            )}
+                <>
+                    {/* <Typography variant="body2" color="textSecondary">Your Product is empty.</Typography> */}
+                    <Grid container spacing={2} sx={{ mt: 2 }}>
+                        {array.map((_, index) => (
+                            <Grid item xs={12} sm={6} md={3} key={index}>
+                                <div style={{ marginBottom: '1rem' }}>
+                                    <Skeleton variant="rectangular" width={300} height={150} />
+                                    <Skeleton variant="rectangular" width={220} height={20} style={{ marginTop: 8 }} />
+                                    <Skeleton variant="rectangular" width={150} height={20} style={{ marginTop: 8 }} />
+                                </div>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </>
+            )
+            }
         </Grid >
     );
 }
