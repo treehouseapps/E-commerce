@@ -108,7 +108,6 @@ const Products = () => {
                 ))
             ) : (
                 <>
-                    {/* <Typography variant="body2" color="textSecondary">Your Product is empty.</Typography> */}
                     <Grid container spacing={2} sx={{ mt: 2 }}>
                         {array.map((_, index) => (
                             <Grid item xs={12} sm={6} md={3} key={index}>
