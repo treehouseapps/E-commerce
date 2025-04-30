@@ -7,5 +7,6 @@ export const Endpoints = {
     products: '/products',
     Contact: '/Contact',
     productId: '/products/:id',
-    productForm: '/productform'
+    productForm: '/productform',
+    messages: '/messages'
 }

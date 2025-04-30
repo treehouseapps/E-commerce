@@ -5,6 +5,7 @@ import AuthPageAdmin from '../pages/AuthPageAdmin';
 import Products from '../pages/products';
 import Users from '../pages/UserList';
 import ProductForm from '../pages/ProductForm';
+import MessageList from '../pages/MessageList'
 import { Endpoints } from '../api/endpoints';
 import Home from '../pages/Home';
 import Contact from '../pages/Contact';
@@ -20,6 +21,8 @@ function App() {
             <Route path={Endpoints.users} element={<Users />} />
             <Route path={Endpoints.productForm} element={<ProductForm />} />
             <Route path={Endpoints.productId} element={<ProductDetail />} />
+            <Route path={Endpoints.messages} element={<MessageList />} />
+
         </Routes>
     );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, TextField, Grid, Paper } from '@mui/material';
 import { Email, Phone, LocationOn } from '@mui/icons-material';
 import Navbar from '../components/navbar';
@@ -6,6 +6,32 @@ import Footer from '../components/footer';
 import Button from '../components/Button'
 
 const Contact = () => {
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [message, setMessage] = useState('')
+
+    const url = 'https://th-ecommerce-api.vercel.app/'
+
+    const handleSubmit = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch(url + 'message', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, message })
+            })
+            const result = await response.json()
+            alert(result.message)
+            setName('')
+            setEmail('')
+            setMessage('')
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
             <Navbar />
@@ -39,16 +65,22 @@ const Contact = () => {
                                 Send us a message
                             </Typography>
                             <Box component="form" display="grid" gap={2}>
-                                <TextField label="Your Name" fullWidth required />
-                                <TextField label="Your Email" type="email" fullWidth required />
+                                <TextField label="Your Name" fullWidth required
+                                    value={name}
+                                    onChange={(e) => { setName(e.target.value) }} />
+                                <TextField label="Your Email" type="email" fullWidth required
+                                    value={email}
+                                    onChange={(e) => { setEmail(e.target.value) }} />
                                 <TextField
                                     label="Message"
                                     multiline
                                     rows={4}
                                     fullWidth
                                     required
+                                    value={message}
+                                    onChange={(e) => { setMessage(e.target.value) }}
                                 />
-                                <Button text='Send' onClick={() => { alert('Sent !!!') }} />
+                                <Button text='Send' onClick={() => { handleSubmit() }} />
                             </Box>
                         </Grid>
                     </Grid>
