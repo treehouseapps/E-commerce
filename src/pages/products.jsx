@@ -1,4 +1,5 @@
 import { Grid, Box, } from "@mui/material";
+import Sidebar from '../components/sidebar'
 import ProductsList from '../components/productsList'
 import Navbar from "../components/navbar";
 import Footer from '../components/footer';
@@ -10,7 +11,8 @@ const Products = () => {
         <>
             <Box sx={{ width: '100%', overflowX: 'hidden' }}>
                 <Navbar />
-                <Grid display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                <Grid display={'grid'} gridTemplateColumns={'1fr 5fr'}>
+                    <Sidebar />
                     <ProductsList />
                 </Grid>
             </Box >

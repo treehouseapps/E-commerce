@@ -38,7 +38,7 @@ const Products = () => {
         setHoveredItem(null);
     };
     return (
-        <Grid container spacing={3} padding={3} sx={{ width: '100%', margin: '1rem 1rem' }}>
+        <Grid container spacing={3} padding={3} sx={{ width: '100%' }}>
             {products.length > 0 ? (
                 products.map((item) => (
                     <Grid item xs={12} sm={6} md={3} key={item._id}
@@ -112,8 +112,8 @@ const Products = () => {
                         {array.map((_, index) => (
                             <Grid item xs={12} sm={6} md={3} key={index}>
                                 <div style={{ marginBottom: '1rem' }}>
-                                    <Skeleton variant="rectangular" width={300} height={150} />
-                                    <Skeleton variant="rectangular" width={220} height={20} style={{ marginTop: 8 }} />
+                                    <Skeleton variant="rectangular" width={250} height={150} />
+                                    <Skeleton variant="rectangular" width={200} height={20} style={{ marginTop: 8 }} />
                                     <Skeleton variant="rectangular" width={150} height={20} style={{ marginTop: 8 }} />
                                 </div>
                             </Grid>
