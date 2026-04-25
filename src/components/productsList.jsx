@@ -6,6 +6,8 @@ import {
   CardActions,
   Typography,
   Skeleton,
+  Divider,
+  TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { getAllProducts } from "../api/products";
@@ -24,6 +26,8 @@ const Products = () => {
       try {
         const data = await getAllProducts();
         setProducts(data.products || []);
+
+        console.log("Fetched products:", data.products); // Debugging log
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]);
@@ -62,84 +66,100 @@ const Products = () => {
           >
             <Card
               sx={{
-                height: "100%",
+                height: "max-content",
                 display: "flex",
                 flexDirection: "column",
-                borderRadius: "0px",
-                boxShadow: 3,
+                borderRadius: 2,
+                boxShadow: 2,
+                transition: "box-shadow 0.3s ease-in-out",
+                "&:hover": {
+                  boxShadow: 6,
+                },
               }}
             >
               <Link
                 to={`/products/${item._id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
-                <CardContent sx={{ height: "8rem" }}>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <Box
                     display={"flex"}
                     justifyContent={"center"}
                     sx={{
-                      "&:hover": { transform: "scale(1.2)", transition: ".5s" },
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        transition: "0.3s ease",
+                      },
                     }}
                   >
                     <img
                       src={item.img}
-                      alt=""
+                      alt={item.name}
                       style={{
-                        width: "150px",
-                        height: "150px",
+                        width: "100%",
+                        height: "100%",
                         objectFit: "contain",
+                        borderRadius: "8px",
                       }}
                     />
                   </Box>
                 </CardContent>
-                <hr />
+                <Divider />
               </Link>
               <Box pl={1}>
                 {hoveredItem === item._id ? (
-                  <CardActions sx={{ width: "95%" }}>
+                  <CardActions sx={{ padding: 2 }}>
                     <Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         width: "100%",
+                        gap: 1,
                       }}
                     >
-                      <input
+                      <TextField
                         type="number"
-                        min="1"
+                        size="small"
+                        inputProps={{ min: 1 }}
                         value={quantities[item._id] || 1}
                         onChange={(e) =>
                           handleQuantityChange(
                             item._id,
-                            parseInt(e.target.value),
+                            parseInt(e.target.value) || 1,
                           )
                         }
-                        style={{
-                          width: "10%",
-                          padding: "5px",
-                          borderRadius: "6px",
-                          border: "1px solid #ccc",
-                          marginRight: "10px",
-                        }}
+                        sx={{ width: "80px" }}
                       />
                       <Button
                         onClick={() =>
                           addToCart(item, quantities[item._id] || 1)
                         }
-                        sx={{ width: "90%", padding: "2px" }}
+                        sx={{
+                          flexGrow: 0,
+                          fontSize: "small",
+                          padding: "6px 12px",
+                        }}
                         text="Add to Cart"
                       />
                     </Box>
                   </CardActions>
                 ) : (
-                  <Box pl={1} alignContent={"end"}>
+                  <Box sx={{ padding: 2, paddingTop: 0 }}>
                     <Typography
                       fontFamily={"Trebuchet MS"}
-                      fontSize={14}
+                      fontSize={16}
+                      fontWeight={500}
                       sx={{
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
+                        marginBottom: 0.5,
                       }}
                     >
                       {item.name}
@@ -147,7 +167,9 @@ const Products = () => {
                     <Typography
                       variant="subtitle1"
                       fontFamily={"Trebuchet MS"}
-                      fontSize={13}
+                      fontSize={14}
+                      color="primary"
+                      fontWeight={600}
                     >
                       Price: ${item.price}
                     </Typography>
