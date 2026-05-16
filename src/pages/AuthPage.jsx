@@ -21,12 +21,12 @@ const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   // Login
-  const [email, setEmail] = useState("abebe@gmail.com");
+  const [email, setEmail] = useState("bob@gmail.com");
   const [password, setPassword] = useState("123456");
 
   // Register
-  const [name, setName] = useState("Abebe");
-  const [regEmail, setRegEmail] = useState("abebe@gmail.com");
+  const [name, setName] = useState("BoB");
+  const [regEmail, setRegEmail] = useState("bob@gmail.com");
   const [regPassword, setRegPassword] = useState("123456");
 
   // const url = 'https://e-commerce-api-f9qb.onrender.com/'
