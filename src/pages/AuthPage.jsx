@@ -16,6 +16,7 @@ import Navbar from "../components/navbar";
 import { Person } from "@mui/icons-material";
 import Button from "../components/Button";
 import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -32,6 +33,8 @@ const AuthPage = () => {
   // const url = 'https://e-commerce-api-f9qb.onrender.com/'
   const url = "https://th-ecommerce-api.vercel.app/";
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -47,7 +50,8 @@ const AuthPage = () => {
         if (result.token) {
           localStorage.setItem("token", result.token);
           setLoading(false);
-          window.location.reload();
+          // window.location.reload();
+          navigate("/products");
         }
         setLoading(false);
       } catch (error) {
