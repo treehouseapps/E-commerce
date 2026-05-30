@@ -27,8 +27,8 @@ const Checkout = () => {
     city: "",
     region: "",
   });
-  console.log(user);
-  const deliveryFee = 5.0; // optional fixed fee
+  const [errors, setErrors] = useState({});
+  const deliveryFee = 5.0;
 
   const subtotal = useMemo(() => {
     return cart.reduce(
@@ -42,8 +42,47 @@ const Checkout = () => {
     [subtotal, cart.length],
   );
 
-  const handleChange = (e) =>
-    setCustomer({ ...customer, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCustomer({ ...customer, [name]: value });
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validateCustomer = () => {
+    const newErrors = {};
+    const requiredFields = [
+      "fullName",
+      "email",
+      "phone",
+      "address",
+      "city",
+      "region",
+    ];
+
+    requiredFields.forEach((field) => {
+      if (!customer[field]?.trim()) {
+        newErrors[field] = "This field is required.";
+      }
+    });
+
+    if (customer.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (!validateCustomer()) return;
+    if (!cart.length) {
+      window.alert(
+        "Your cart is empty. Add items before continuing to payment.",
+      );
+      return;
+    }
+    navigate(Endpoints.payment);
+  };
 
   useEffect(() => {
     if (user) {
@@ -58,7 +97,6 @@ const Checkout = () => {
   if (!localStorage.getItem("token")) {
     return <Navigate to={Endpoints.Auth} replace />;
   }
-
   return (
     <>
       <Navbar />
@@ -79,6 +117,8 @@ const Checkout = () => {
                   name="fullName"
                   value={customer.fullName}
                   onChange={handleChange}
+                  error={Boolean(errors.fullName)}
+                  helperText={errors.fullName}
                   fullWidth
                 />
                 <TextField
@@ -86,6 +126,8 @@ const Checkout = () => {
                   name="email"
                   value={customer.email}
                   onChange={handleChange}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email}
                   fullWidth
                 />
                 <TextField
@@ -93,6 +135,8 @@ const Checkout = () => {
                   name="phone"
                   value={customer.phone}
                   onChange={handleChange}
+                  error={Boolean(errors.phone)}
+                  helperText={errors.phone}
                   fullWidth
                 />
 
@@ -106,6 +150,8 @@ const Checkout = () => {
                   name="address"
                   value={customer.address}
                   onChange={handleChange}
+                  error={Boolean(errors.address)}
+                  helperText={errors.address}
                   fullWidth
                 />
                 <TextField
@@ -113,6 +159,8 @@ const Checkout = () => {
                   name="city"
                   value={customer.city}
                   onChange={handleChange}
+                  error={Boolean(errors.city)}
+                  helperText={errors.city}
                   fullWidth
                 />
                 <TextField
@@ -120,6 +168,8 @@ const Checkout = () => {
                   name="region"
                   value={customer.region}
                   onChange={handleChange}
+                  error={Boolean(errors.region)}
+                  helperText={errors.region}
                   fullWidth
                 />
               </Box>
@@ -180,7 +230,7 @@ const Checkout = () => {
                       sx={{ flex: 1 }}
                     />
                     <Button
-                      onClick={() => navigate(Endpoints.payment)}
+                      onClick={handleSubmit}
                       text={"Continue to Payment →"}
                       sx={{ flex: 1 }}
                     />
