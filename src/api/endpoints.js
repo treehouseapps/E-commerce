@@ -10,4 +10,7 @@ export const Endpoints = {
   productForm: "/productform",
   messages: "/messages",
   checkout: "/checkout",
+  profile: "/profile",
+  payment: "/payment",
+  orderSuccess: "/order-success",
 };

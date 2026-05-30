@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   Box,
   Grid,
@@ -11,12 +11,14 @@ import Button from "../components/Button";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { CartContext } from "../context/CartContext";
+import { useUser } from "../context/userContext";
 import { Endpoints } from "../api/endpoints";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { cart } = useContext(CartContext);
+  const { user } = useUser();
   const [customer, setCustomer] = useState({
     fullName: "",
     email: "",
@@ -25,7 +27,7 @@ const Checkout = () => {
     city: "",
     region: "",
   });
-
+  console.log(user);
   const deliveryFee = 5.0; // optional fixed fee
 
   const subtotal = useMemo(() => {
@@ -42,6 +44,20 @@ const Checkout = () => {
 
   const handleChange = (e) =>
     setCustomer({ ...customer, [e.target.name]: e.target.value });
+
+  useEffect(() => {
+    if (user) {
+      setCustomer((prev) => ({
+        ...prev,
+        fullName: user.name || prev.fullName,
+        email: user.email || prev.email,
+      }));
+    }
+  }, [user]);
+
+  if (!localStorage.getItem("token")) {
+    return <Navigate to={Endpoints.Auth} replace />;
+  }
 
   return (
     <>
@@ -164,7 +180,7 @@ const Checkout = () => {
                       sx={{ flex: 1 }}
                     />
                     <Button
-                      onClick={() => navigate("/payment")}
+                      onClick={() => navigate(Endpoints.payment)}
                       text={"Continue to Payment →"}
                       sx={{ flex: 1 }}
                     />

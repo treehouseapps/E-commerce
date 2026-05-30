@@ -1,12 +1,15 @@
-import Routes from './routes/routes'
-import CartProvider from './context/CartContext';
+import Routes from "./routes/routes";
+import CartProvider from "./context/CartContext";
+import { UserProvider } from "./context/userContext";
 
 const App = () => {
-    return (
-        <CartProvider>
-            <Routes />
-        </CartProvider>
-    );
-}
+  return (
+    <UserProvider>
+      <CartProvider>
+        <Routes />
+      </CartProvider>
+    </UserProvider>
+  );
+};
 
 export default App;

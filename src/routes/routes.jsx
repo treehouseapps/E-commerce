@@ -7,6 +7,9 @@ import Users from "../pages/UserList";
 import ProductForm from "../pages/ProductForm";
 import MessageList from "../pages/MessageList";
 import Checkout from "../pages/Checkout";
+import Profile from "../pages/Profile";
+import Payment from "../pages/Payment";
+import OrderSuccess from "../pages/OrderSuccess";
 import { Endpoints } from "../api/endpoints";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
@@ -23,6 +26,9 @@ function App() {
       <Route path={Endpoints.productForm} element={<ProductForm />} />
       <Route path={Endpoints.productId} element={<ProductDetail />} />
       <Route path={Endpoints.checkout} element={<Checkout />} />
+      <Route path={Endpoints.payment} element={<Payment />} />
+      <Route path={Endpoints.orderSuccess} element={<OrderSuccess />} />
+      <Route path={Endpoints.profile} element={<Profile />} />
       <Route path={Endpoints.messages} element={<MessageList />} />
     </Routes>
   );

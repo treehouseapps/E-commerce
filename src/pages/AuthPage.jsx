@@ -50,8 +50,8 @@ const AuthPage = () => {
         if (result.token) {
           localStorage.setItem("token", result.token);
           setLoading(false);
-          // window.location.reload();
           navigate("/products");
+          window.location.reload();
         }
         setLoading(false);
       } catch (error) {
